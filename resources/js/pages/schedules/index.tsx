@@ -59,7 +59,7 @@ export default function Index({ schedules, recent, popular }: { schedules: Song[
                                             </Tab>
                                         </TabList>
                                         <TabPanels className="mt-3">
-                                            <TabPanel key={1} className="rounded-xl bg-neutral-100 p-3">
+                                            <TabPanel key={1} className="rounded-xl bg-black/5 p-3 dark:bg-white/5">
                                                 {schedules.length > 0 ? (
                                                     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                                         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -200,7 +200,7 @@ export default function Index({ schedules, recent, popular }: { schedules: Song[
                                                     </div>
                                                 )}
                                             </TabPanel>
-                                            <TabPanel key={2} className="rounded-xl bg-neutral-100 p-3">
+                                            <TabPanel key={2} className="rounded-xl bg-black/5 p-3 dark:bg-white/5">
                                                 {recent.length > 0 ? (
                                                     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                                         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -311,7 +311,7 @@ export default function Index({ schedules, recent, popular }: { schedules: Song[
                                                     </div>
                                                 )}
                                             </TabPanel>
-                                            <TabPanel key={3} className="rounded-xl bg-neutral-100 p-3">
+                                            <TabPanel key={3} className="rounded-xl bg-black/5 p-3 dark:bg-white/5">
                                                 {popular.length > 0 ? (
                                                     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                                                         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
@@ -334,7 +334,7 @@ export default function Index({ schedules, recent, popular }: { schedules: Song[
                                                                             scope="col"
                                                                             className="px-3 py-3.5 text-left text-sm font-semibold"
                                                                         >
-                                                                            Qtde de Usos
+                                                                            Usado
                                                                         </th>
                                                                         <th
                                                                             scope="col"

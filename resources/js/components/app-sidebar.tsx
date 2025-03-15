@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { Guitar, ListMusic, MicVocal } from 'lucide-react';
+import { Guitar, ListMusic, MicVocal, TagIcon } from 'lucide-react';
 import AppLogo from './app-logo';
 
 const mainNavItems: NavItem[] = [
@@ -30,6 +30,11 @@ const mainNavItems: NavItem[] = [
         title: 'Separadas',
         url: '/separadas',
         icon: ListMusic,
+    },
+    {
+        title: 'Tema',
+        url: '/tema',
+        icon: TagIcon,
     },
 ];
 

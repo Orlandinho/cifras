@@ -1,19 +1,9 @@
 import DeleteButton from '@/components/delete-button';
-import Pagination from '@/components/pagination';
-import { Input } from '@/components/ui/input';
+import { Navbar, NavbarItem, NavbarSection } from '@/components/nav-bar';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/react';
-import { debounce } from 'lodash';
+import { Head, Link } from '@inertiajs/react';
 import { BookOpenCheckIcon, CirclePlusIcon, LinkIcon, SquarePenIcon } from 'lucide-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Cifras',
-        href: '/cifras',
-    },
-];
 
 const today = new Date().toLocaleString('pt-BR').split(',')[0];
 
@@ -29,51 +19,48 @@ interface Song {
     };
 }
 
-export default function Index({ songs, filter }: { songs: Song[]; filter: string }) {
-    const [search, setSearch] = useState(filter || '');
-    const isFirstRender = useRef(true);
-
-    const handleSearch = useCallback(
-        debounce((query) => {
-            router.get(route('songs.index'), { filter: query }, { replace: true, preserveState: true });
-        }, 400),
-        [],
-    );
-
-    useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-            return;
-        }
-        handleSearch(search);
-    }, [search]);
+export default function Index({ songs, tag, topics }: { songs: Song[]; tag: string; topics: [] }) {
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: tag ? 'Tema' : 'Temas',
+            href: '/tema',
+        },
+        {
+            title: tag ? tag.name : '',
+            href: '/tema/' + (tag ? tag.slug : ''),
+        },
+    ];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Lista de Cifras" />
-            <div className="py-6">
+            <div className="pt-2 pb-6">
                 <div className="mx-auto max-w-6xl sm:px-6 lg:px-8">
+                    <Navbar className="mb-2 rounded-md border border-neutral-800">
+                        <NavbarSection>
+                            <div className="grid grid-cols-4 gap-4 md:grid-cols-8">
+                                {topics.map((topic) => (
+                                    <NavbarItem
+                                        key={topic.id}
+                                        className="colspan-1 rounded-md hover:bg-white/10"
+                                        href={route('tags.index', topic.slug)}
+                                        current={topic.name === tag?.name}
+                                    >
+                                        {topic.name}
+                                    </NavbarItem>
+                                ))}
+                            </div>
+                        </NavbarSection>
+                    </Navbar>
                     <div className="overflow-hidden bg-neutral-100 shadow-sm sm:rounded-lg dark:bg-neutral-900">
                         <div className="p-6">
-                            {songs.data.length > 0 ? (
+                            {songs.length > 0 ? (
                                 <div>
                                     <div className="sm:flex sm:items-center">
                                         <div className="sm:flex-auto">
-                                            <h1 className="text-base font-semibold">Cifras</h1>
+                                            <h1 className="text-base font-semibold">Tema: {tag ? tag.name : ''}</h1>
                                             <p className="mt-2 text-sm">Cifras em ordem alfabética.</p>
                                         </div>
-                                        {(songs.data.length > 0 || search.length) && (
-                                            <div className="mt-4 max-w-xs sm:mt-0 sm:max-w-sm">
-                                                <Input
-                                                    type="text"
-                                                    tabIndex={1}
-                                                    autoComplete="search"
-                                                    value={search}
-                                                    onChange={(e) => setSearch(e.target.value)}
-                                                    placeholder="Busca"
-                                                />
-                                            </div>
-                                        )}
                                         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                                             <Link
                                                 href={route('songs.create')}
@@ -129,7 +116,7 @@ export default function Index({ songs, filter }: { songs: Song[]; filter: string
                                                         </tr>
                                                     </thead>
                                                     <tbody className="divide-y divide-neutral-600">
-                                                        {songs.data.map((song: Song) => (
+                                                        {songs.map((song: Song) => (
                                                             <tr key={song.id}>
                                                                 <td className="py-3 pr-3 pl-4 text-sm font-medium whitespace-nowrap sm:pl-0">
                                                                     <Link
@@ -217,23 +204,17 @@ export default function Index({ songs, filter }: { songs: Song[]; filter: string
                                     </div>
                                 </div>
                             ) : (
-                                <div
-                                    className={`sm:flex sm:items-center sm:justify-between ${search.length ? 'mt-8' : ''}`}
-                                >
+                                <div className="sm:flex sm:items-center sm:justify-between">
                                     <div className="sm:flex-auto">
                                         <h1 className="text-base font-semibold">
-                                            {search.length
-                                                ? 'A busca não retornou nenhum resultado'
-                                                : 'Nenhuma cifra cadastrada'}
+                                            {tag ? 'Nenhuma cifra para esse tema' : 'Selecione um tema'}
                                         </h1>
                                     </div>
-                                    <div
-                                        className={`mt-4 sm:mt-0 sm:ml-16 sm:flex-none ${search.length ? 'hidden' : ''}`}
-                                    >
+                                    <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
                                         <Link
                                             href={route('songs.create')}
                                             type="button"
-                                            className="block rounded-md bg-orange-600 px-3 py-1.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+                                            className="rounded-md bg-orange-600 px-3 py-1.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-orange-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
                                         >
                                             Nova Cifra
                                         </Link>
@@ -241,7 +222,6 @@ export default function Index({ songs, filter }: { songs: Song[]; filter: string
                                 </div>
                             )}
                         </div>
-                        {songs.meta.last_page > 1 && <Pagination items={songs} />}
                     </div>
                 </div>
             </div>

@@ -29,6 +29,14 @@ return [
         'tags' => [
             'exists' => 'O tema selecionado não faz parte da lista disponível'
         ],
+        'artist' => [
+            'required' => 'É necessário fornecer o nome do grupo ou artista',
+            'max' => 'O limite de caracteres foi excedido',
+        ],
+        'slug' => [
+            'unique' => 'Este nome já está em uso',
+            'max' => 'O limite de caracteres foi excedido'
+        ]
     ],
 
     /*

@@ -22,6 +22,8 @@ interface Song {
 }
 
 export default function Edit({ song, topics }: { song: Song; topics: string[] }) {
+    console.log('song', song);
+
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Cifras',
@@ -44,7 +46,7 @@ export default function Edit({ song, topics }: { song: Song; topics: string[] })
     const { data, setData, patch, processing, errors } = useForm<SongForm>({
         title: song.title,
         artist: song.artist.name,
-        tags: song.tags,
+        tags: song.tags.map((tag) => tag.id),
         url: song.url,
         body: song.body,
     });

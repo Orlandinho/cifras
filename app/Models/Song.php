@@ -25,6 +25,11 @@ class Song extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function tags_ids()
+    {
+        return $this->belongsToMany(Tag::class)->pluck('tags.id');
+    }
+
     public function schedules(): HasMany
     {
         return $this->hasMany(Schedule::class);

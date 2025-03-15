@@ -7,13 +7,16 @@ export default function AppearanceToggleTab({ className = '', ...props }: HTMLAt
     const { appearance, updateAppearance } = useAppearance();
 
     const tabs: { value: Appearance; icon: LucideIcon; label: string }[] = [
-        { value: 'light', icon: Sun, label: 'Light' },
-        { value: 'dark', icon: Moon, label: 'Dark' },
-        { value: 'system', icon: Monitor, label: 'System' },
+        { value: 'light', icon: Sun, label: 'Claro' },
+        { value: 'dark', icon: Moon, label: 'Escuro' },
+        { value: 'system', icon: Monitor, label: 'Sistema' },
     ];
 
     return (
-        <div className={cn('inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800', className)} {...props}>
+        <div
+            className={cn('inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800', className)}
+            {...props}
+        >
             {tabs.map(({ value, icon: Icon, label }) => (
                 <button
                     key={value}

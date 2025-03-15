@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SongController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', function () {
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
         Route::post('separadas/{song}', 'toggle')->name('schedules.toggle');
         Route::delete('separadas/{song}', 'destroy')->name('schedules.destroy');
     });
+
+    Route::get('tema/{tag:slug?}', TagController::class)->name('tags.index');
 });
 
 require __DIR__ . '/settings.php';

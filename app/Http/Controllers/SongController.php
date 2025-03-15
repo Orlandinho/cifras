@@ -21,7 +21,8 @@ class SongController extends Controller
             'filter' => request('filter'),
             'songs' => SongResource::collection(
                 Song::when(request()->input('filter'), function ($query, $filter) {
-                    $query->where('title', 'like', "%{$filter}%");
+                    $query->whereLike('title', "%{$filter}%")
+                        ->orWhereRelation('artist', 'name', 'like', "%{$filter}%");
                 })
                     ->withCount('schedules')
                     ->with(['artist', 'schedules'])

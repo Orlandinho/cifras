@@ -1,21 +1,19 @@
+import InputError from '@/components/input-error';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router, useForm } from '@inertiajs/react';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
-import { FormEventHandler } from 'react';
-import { Textarea } from '@/components/ui/textarea';
+import { Head, router, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { FormEventHandler } from 'react';
 
 interface Artist {
-    name: string,
-    slug: string,
+    name: string;
+    slug: string;
 }
 
-export default function Edit({artist}: {artist: Artist}) {
-
+export default function Edit({ artist }: { artist: Artist }) {
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Cifras',
@@ -32,7 +30,7 @@ export default function Edit({artist}: {artist: Artist}) {
     ];
 
     const { data, setData, patch, processing, errors } = useForm<ArtistForm>({
-        name: artist.name
+        name: artist.name,
     });
 
     const submit: FormEventHandler = (e) => {
@@ -45,7 +43,7 @@ export default function Edit({artist}: {artist: Artist}) {
             <Head title="Nova Cifra" />
             <div className="py-6">
                 <div className="mx-auto max-w-5xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden dark:bg-neutral-900 bg-neutral-50 shadow-sm sm:rounded-lg">
+                    <div className="overflow-hidden bg-neutral-50 shadow-sm sm:rounded-lg dark:bg-neutral-900">
                         <div className="p-6">
                             <form className="flex flex-col gap-6" onSubmit={submit}>
                                 <div className="grid gap-6">
@@ -61,7 +59,7 @@ export default function Edit({artist}: {artist: Artist}) {
                                             value={data.name}
                                             onChange={(e) => setData('name', e.target.value)}
                                         />
-                                        <InputError message={errors.name} />
+                                        <InputError message={errors.name || errors.slug} />
                                     </div>
 
                                     <div className="mt-4 flex items-center justify-start gap-x-6">
@@ -69,7 +67,11 @@ export default function Edit({artist}: {artist: Artist}) {
                                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                             Atualizar
                                         </Button>
-                                        <Button onClick={() => router.visit("/artistas", {method: 'get'})} type="button" tabIndex={3}>
+                                        <Button
+                                            onClick={() => router.visit('/artistas', { method: 'get' })}
+                                            type="button"
+                                            tabIndex={3}
+                                        >
                                             Cancelar
                                         </Button>
                                     </div>
