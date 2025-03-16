@@ -2,20 +2,25 @@ import { Link } from '@inertiajs/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 export default function Pagination({ items }: { items: [] }) {
+    console.log(items);
     return (
         <div className="flex items-center justify-between border-t border-neutral-500 bg-neutral-50 px-4 py-3 sm:px-6 dark:bg-neutral-900">
             <div className="flex flex-1 justify-between sm:hidden">
                 <Link
-                    href="#"
-                    className="relative inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                    as="button"
+                    href={items.links.prev}
+                    disabled={!items.links.prev}
+                    className={`${!items.links.prev ? 'hidden' : ''} relative inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-1 text-sm font-medium text-neutral-700 hover:bg-neutral-50`}
                 >
-                    Previous
+                    Anterior
                 </Link>
                 <Link
-                    href="#"
-                    className="relative ml-3 inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                    as="button"
+                    href={items.links.next}
+                    disabled={!items.links.next}
+                    className={`${!items.links.next ? 'hidden' : ''} relative ml-3 inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-1 text-sm font-medium text-neutral-700 hover:bg-neutral-50`}
                 >
-                    Next
+                    Próximo
                 </Link>
             </div>
             <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
