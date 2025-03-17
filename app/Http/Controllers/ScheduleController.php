@@ -12,14 +12,14 @@ class ScheduleController extends Controller
 {
     public function index(): Response
     {
-        $query1 = Schedule::with('song.artist')->whereDate('date', now()->toDateString());
+        /*$query1 = Schedule::with('song.artist')->whereDate('date', now()->toDateString());
         $query2 = Schedule::with('song.artist')->latest()->limit(30);
 
-        $schedules = ScheduleResource::collection($query1->union($query2)->get());
+        $schedules = ScheduleResource::collection($query1->union($query2)->get());*/
 
         return inertia('schedules/index', [
-            'schedules' => $schedules,
-            'recent' => $schedules,
+            'schedules' => ScheduleResource::collection(Schedule::with('song.artist')->whereDate('date', now()->toDateString())->get()),
+            'recent' => ScheduleResource::collection(Schedule::with('song.artist')->latest()->limit(30)->get()),
             'popular' => SongResource::collection(
                 Song::withCount('schedules')
                     ->with(['artist', 'schedules'])
