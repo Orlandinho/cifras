@@ -22,8 +22,6 @@ interface Song {
 }
 
 export default function Edit({ song, topics }: { song: Song; topics: string[] }) {
-    console.log('song', song);
-
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: 'Cifras',

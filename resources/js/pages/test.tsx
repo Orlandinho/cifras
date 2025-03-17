@@ -13,7 +13,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Test({ schedules, recent, popular }) {
-    console.log(recent);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />

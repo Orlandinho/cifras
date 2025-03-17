@@ -18,14 +18,20 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::create([
+        /*User::create([
             'name' => 'Grupo Exaltai',
             'email' => 'grupoexaltai@ipvg.com.br',
             'password' => bcrypt('password'),
             'email_verified_at' => now(),
+        ]);*/
+
+        $user = User::find(1);
+        $user->update([
+            'password' => bcrypt('grupoexaltai'),
         ]);
 
-        $tags = ['Adoração', 'Perdão', 'Páscoa', 'Natal', 'Comunhão', 'Louvor', 'Gratidão', 'Alegria'];
+        //$tags = ['Adoração', 'Perdão', 'Páscoa', 'Natal', 'Comunhão', 'Louvor', 'Gratidão', 'Alegria', 'Amor'];
+        $tags = ['Amor'];
 
         foreach ($tags as $tag) {
             Tag::create([

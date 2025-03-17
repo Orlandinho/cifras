@@ -2,7 +2,6 @@ import { Link } from '@inertiajs/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 export default function Pagination({ items }: { items: [] }) {
-    console.log(items);
     return (
         <div className="flex items-center justify-between border-t border-neutral-500 bg-neutral-50 px-4 py-3 sm:px-6 dark:bg-neutral-900">
             <div className="flex flex-1 justify-between sm:hidden">
