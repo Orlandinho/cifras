@@ -16,7 +16,7 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
             <SidebarMenu>
                 {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild isActive={item.url === '/' + page.url.split('/')[1]}>
+                        <SidebarMenuButton asChild isActive={page.url.includes(item.url)}>
                             <Link href={item.url}>
                                 {item.icon && <item.icon />}
                                 <span>{item.title}</span>

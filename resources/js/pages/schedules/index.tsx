@@ -7,8 +7,8 @@ import { LinkIcon, SquarePenIcon, XIcon } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Cifras',
-        href: '/cifras',
+        title: 'Separadas',
+        href: '/separadas',
     },
 ];
 

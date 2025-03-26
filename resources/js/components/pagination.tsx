@@ -9,7 +9,7 @@ export default function Pagination({ items }: { items: [] }) {
                     as="button"
                     href={items.links.prev}
                     disabled={!items.links.prev}
-                    className={`${!items.links.prev ? 'hidden' : ''} relative inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-1 text-sm font-medium text-neutral-700 hover:bg-neutral-50`}
+                    className={`${!items.links.prev ? 'border border-neutral-400 bg-neutral-400' : 'border border-neutral-300 bg-white hover:bg-neutral-50'} relative inline-flex items-center rounded-md px-4 py-1 text-sm font-medium text-neutral-700`}
                 >
                     Anterior
                 </Link>
@@ -17,7 +17,7 @@ export default function Pagination({ items }: { items: [] }) {
                     as="button"
                     href={items.links.next}
                     disabled={!items.links.next}
-                    className={`${!items.links.next ? 'hidden' : ''} relative ml-3 inline-flex items-center rounded-md border border-neutral-300 bg-white px-4 py-1 text-sm font-medium text-neutral-700 hover:bg-neutral-50`}
+                    className={`${!items.links.next ? 'border border-neutral-400 bg-neutral-400' : 'border border-neutral-300 bg-white hover:bg-neutral-50'} relative ml-3 inline-flex items-center rounded-md px-4 py-1 text-sm font-medium text-neutral-700`}
                 >
                     Próximo
                 </Link>
@@ -35,12 +35,13 @@ export default function Pagination({ items }: { items: [] }) {
                         {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-neutral-900 ring-1 ring-inset ring-neutral-300 hover:bg-neutral-50 focus:outline-offset-0" */}
                         <>
                             <Link
+                                as="button"
                                 href={items.links.prev}
                                 disabled={!items.links.prev}
                                 preserveScroll={true}
-                                className="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-neutral-500 ring-inset hover:bg-neutral-50 focus:z-20 focus:outline-offset-0 dark:bg-neutral-800 dark:text-neutral-300 hover:dark:bg-neutral-500 hover:dark:text-neutral-300"
+                                className={`${items.links.prev ? 'cursor-pointer hover:bg-neutral-50 hover:dark:bg-neutral-500 hover:dark:text-neutral-300' : ''} relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-neutral-500 ring-inset focus:z-20 focus:outline-offset-0 dark:bg-neutral-800 dark:text-neutral-300`}
                             >
-                                <span className="sr-only">Previous</span>
+                                <span className="sr-only">Anterior</span>
                                 <ChevronLeftIcon aria-hidden="true" className="size-5" />
                             </Link>
                             {items.meta.links.map(
@@ -59,10 +60,11 @@ export default function Pagination({ items }: { items: [] }) {
                             )}
                         </>
                         <Link
+                            as="button"
                             href={items.links.next}
                             preserveScroll={true}
                             disabled={items.meta.current_page === items.meta.last_page}
-                            className="relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-neutral-500 ring-inset hover:bg-neutral-50 focus:z-20 focus:outline-offset-0 dark:bg-neutral-800 dark:text-neutral-300 hover:dark:bg-neutral-500 dark:hover:text-neutral-300"
+                            className={`${items.links.next ? 'cursor-pointer hover:bg-neutral-50 hover:dark:bg-neutral-500 hover:dark:text-neutral-300' : ''} relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-neutral-500 ring-inset focus:z-20 focus:outline-offset-0 dark:bg-neutral-800 dark:text-neutral-300`}
                         >
                             <span className="sr-only">Next</span>
                             <ChevronRightIcon aria-hidden="true" className="size-5" />
