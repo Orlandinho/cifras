@@ -27,7 +27,7 @@ class SongController extends Controller
                     ->withCount('schedules')
                     ->with(['artist', 'schedules'])
                     ->orderBy('title')
-                    ->paginate(1)
+                    ->paginate(15)
                     ->withQueryString()
             ),
         ]);
