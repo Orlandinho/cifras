@@ -151,6 +151,7 @@ export default function Create({ topics }) {
                                         </Label>
                                         <Textarea
                                             rows={20}
+                                            className="font-mono"
                                             maxLength={5000}
                                             spellCheck={true}
                                             id="body"

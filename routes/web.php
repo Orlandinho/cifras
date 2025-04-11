@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
         Route::get('artistas/{artist:slug}', 'show')->name('artists.show');
         Route::get('artistas/{artist:slug}/editar', 'edit')->name('artists.edit');
         Route::patch('artistas/{artist}', 'update')->name('artists.update');
-        Route::delete('artistas/{artist}', 'destroy')->name('artists.destroy')->middleware('password.confirm');
+        Route::delete('artistas/{artist}', 'destroy')->name('artists.destroy');
     });
 
     Route::controller(ScheduleController::class)->group(function () {

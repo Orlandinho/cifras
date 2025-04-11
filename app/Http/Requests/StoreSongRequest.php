@@ -18,6 +18,7 @@ class StoreSongRequest extends FormRequest
     public function prepareForValidation(): void
     {
         $this->merge([
+            'body' => Str::replace("\t", " ", $this->body),
             'artist' => Str::title(Str::lower($this->artist)),
             'title' => Str::title(Str::lower($this->title)),
             'artist_slug' => Str::slug($this->artist, '-'),

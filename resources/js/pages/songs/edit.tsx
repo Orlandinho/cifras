@@ -172,6 +172,7 @@ export default function Edit({ song, topics }: { song: Song; topics: string[] })
                                         </Label>
                                         <Textarea
                                             rows={20}
+                                            className="font-mono"
                                             maxLength={5000}
                                             spellCheck={true}
                                             id="body"
