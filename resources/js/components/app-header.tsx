@@ -7,7 +7,7 @@ import {
     NavigationMenu,
     NavigationMenuItem,
     NavigationMenuList,
-    navigationMenuTriggerStyle,
+    navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -78,27 +78,19 @@ export function AppHeader({ breadcrumbs = [] }: AppHeaderProps) {
                                 <div className="mt-6 flex h-full flex-1 flex-col space-y-4">
                                     <div className="flex h-full flex-col justify-between text-sm">
                                         <div className="flex flex-col space-y-4">
-                                            {mainNavItems.map(
-                                                (item) =>
-                                                    !auth.user &&
-                                                    item.title !== 'Separadas' && (
-                                                        <Link
-                                                            key={item.title}
-                                                            href={item.url}
-                                                            className={
-                                                                'flex items-center space-x-2 font-medium ' +
-                                                                (!auth.user && item.title === 'Separadas'
-                                                                    ? 'hidden'
-                                                                    : '')
-                                                            }
-                                                        >
-                                                            {item.icon && (
-                                                                <Icon iconNode={item.icon} className="h-5 w-5" />
-                                                            )}
-                                                            <span>{item.title}</span>
-                                                        </Link>
-                                                    ),
-                                            )}
+                                            {mainNavItems.map((item) => (
+                                                <Link
+                                                    key={item.title}
+                                                    href={item.url}
+                                                    className={
+                                                        'flex items-center space-x-2 font-medium ' +
+                                                        (!auth.user && item.title === 'Separadas' ? 'hidden' : '')
+                                                    }
+                                                >
+                                                    {item.icon && <Icon iconNode={item.icon} className="h-5 w-5" />}
+                                                    <span>{item.title}</span>
+                                                </Link>
+                                            ))}
                                         </div>
 
                                         <div className="flex flex-col space-y-4">
