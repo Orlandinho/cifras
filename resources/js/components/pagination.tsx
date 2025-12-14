@@ -1,7 +1,20 @@
 import { Link } from '@inertiajs/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { useLayoutEffect, useState } from 'react';
 
 export default function Pagination({ items }: { items: [] }) {
+    const [totalLinks, setTotalLinks] = useState([]);
+
+    useLayoutEffect(() => {
+        let numShown = items.meta.last_page > 7 ? 7 : items.meta.last_page;
+        numShown = Math.min(numShown, items.meta.last_page);
+        let first = items.meta.current_page - Math.floor(numShown / 2);
+        first = Math.max(first, 1);
+        first = Math.min(first, items.meta.last_page - numShown + 1);
+        const total = [...Array(numShown)].map((k, i) => i + first);
+        setTotalLinks(total);
+    }, [items]);
+
     return (
         <div className="flex items-center justify-between border-t border-neutral-500 bg-neutral-50 px-4 py-3 sm:px-6 dark:bg-neutral-900">
             <div className="flex flex-1 justify-between sm:hidden">
@@ -44,20 +57,17 @@ export default function Pagination({ items }: { items: [] }) {
                                 <span className="sr-only">Anterior</span>
                                 <ChevronLeftIcon aria-hidden="true" className="size-5" />
                             </Link>
-                            {items.meta.links.map(
-                                (link: array) =>
-                                    !link.label.includes('aquo') && (
-                                        <Link
-                                            key={link.label}
-                                            preserveScroll={true}
-                                            href={link.url}
-                                            aria-current="page"
-                                            className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-neutral-500 ring-inset focus:z-20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-600 hover:dark:bg-neutral-500 hover:dark:text-neutral-300 ${link.active ? 'z-10 dark:bg-neutral-600 dark:text-neutral-300' : 'dark:bg-neutral-800 dark:text-neutral-400'}`}
-                                        >
-                                            {link.label}
-                                        </Link>
-                                    ),
-                            )}
+                            {totalLinks.map((link: array) => (
+                                <Link
+                                    key={link}
+                                    preserveScroll={true}
+                                    href={route('songs.index', { page: link })}
+                                    aria-current="page"
+                                    className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-neutral-500 ring-inset focus:z-20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-600 hover:dark:bg-neutral-500 hover:dark:text-neutral-300 ${items.meta.current_page === link ? 'z-10 dark:bg-neutral-600 dark:text-neutral-300' : 'dark:bg-neutral-800 dark:text-neutral-400'}`}
+                                >
+                                    {link}
+                                </Link>
+                            ))}
                         </>
                         <Link
                             as="button"

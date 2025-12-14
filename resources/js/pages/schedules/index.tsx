@@ -30,7 +30,7 @@ interface Song {
 export default function Index({ schedules, recent, popular }: { schedules: Song[] }) {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Lista de Cifras" />
+            <Head title="Separadas" />
             <div className="py-6">
                 <div className="mx-auto max-w-6xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-neutral-100 shadow-sm sm:rounded-lg dark:bg-neutral-900">
@@ -374,7 +374,7 @@ export default function Index({ schedules, recent, popular }: { schedules: Song[
                                                                                     'px-3 py-3 text-sm whitespace-nowrap text-neutral-700 dark:text-neutral-400'
                                                                                 }
                                                                             >
-                                                                                {song.schedules_count}
+                                                                                {song.schedules.length}
                                                                             </td>
                                                                             <td className="relative py-3 pr-4 pl-3 text-right text-sm font-medium whitespace-nowrap sm:pr-0">
                                                                                 <div className="flex items-center justify-center space-x-2">

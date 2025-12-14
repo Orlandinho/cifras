@@ -23,6 +23,7 @@ class StoreSongRequest extends FormRequest
             'title' => Str::title(Str::lower($this->title)),
             'artist_slug' => Str::slug($this->artist, '-'),
             'slug' => Str::slug($this->title, '-'),
+            'lyrics' => $this->lyrics
         ]);
     }
 
@@ -40,6 +41,7 @@ class StoreSongRequest extends FormRequest
             'slug' => ['required', 'string', 'max:255'],
             'url' => ['nullable', 'max:255', 'url'],
             'body' => ['required', 'string', 'max:5000'],
+            'lyrics' => ['nullable', 'string', 'max:3000'],
             'tags' => ['nullable', 'array', 'exists:tags,id'],
         ];
     }

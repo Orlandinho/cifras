@@ -15,6 +15,7 @@ interface Song {
     tags: [];
     url: string;
     body: string;
+    lyrics: string;
     artist: {
         name: string;
         slug: string;
@@ -47,6 +48,7 @@ export default function Edit({ song, topics }: { song: Song; topics: string[] })
         tags: song.tags.map((tag) => tag.id),
         url: song.url,
         body: song.body,
+        lyrics: song.lyrics ?? '',
     });
 
     const handleCheckboxChange = (topicId) => {
@@ -185,15 +187,37 @@ export default function Edit({ song, topics }: { song: Song; topics: string[] })
                                         <InputError message={errors.body} />
                                     </div>
 
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="lyrics">
+                                            Letra Cifrada{' '}
+                                            <span className="ml-3 text-xs text-neutral-500">
+                                                Restam: {3000 - (data.lyrics?.length ?? 0) + ' caracteres'}
+                                            </span>
+                                        </Label>
+                                        <Textarea
+                                            rows={20}
+                                            className="font-mono"
+                                            maxLength={3000}
+                                            spellCheck={true}
+                                            id="lyrics"
+                                            required
+                                            tabIndex={5}
+                                            autoComplete="lyrics"
+                                            value={data.lyrics}
+                                            onChange={(e) => setData('lyrics', e.target.value)}
+                                        />
+                                        <InputError message={errors.lyrics} />
+                                    </div>
+
                                     <div className="mt-4 flex items-center justify-start gap-x-6">
-                                        <Button type="submit" tabIndex={5} disabled={processing}>
+                                        <Button type="submit" tabIndex={6} disabled={processing}>
                                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                             Atualizar
                                         </Button>
                                         <Button
                                             onClick={() => router.visit('/cifras', { method: 'get' })}
                                             type="button"
-                                            tabIndex={6}
+                                            tabIndex={7}
                                         >
                                             Cancelar
                                         </Button>

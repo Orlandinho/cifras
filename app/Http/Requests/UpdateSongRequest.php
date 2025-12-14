@@ -25,6 +25,7 @@ class UpdateSongRequest extends FormRequest
             'artist_slug' => Str::slug($this->artist, '-'),
             'title' => Str::title(Str::lower($this->title)),
             'slug' => Str::slug($this->title, '-'),
+            'lyrics' => $this->lyrics
         ]);
     }
 
@@ -43,6 +44,7 @@ class UpdateSongRequest extends FormRequest
             'slug' => ['required', 'string', 'max:255'],
             'url' => ['nullable', 'max:255', 'url'],
             'body' => ['required', 'string', 'max:5000'],
+            'lyrics' => ['nullable', 'string', 'max:3000'],
             'tags' => ['nullable', 'array', 'exists:tags,id'],
         ];
     }

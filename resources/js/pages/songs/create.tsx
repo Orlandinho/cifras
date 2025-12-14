@@ -26,6 +26,7 @@ export default function Create({ topics }) {
         tags: [],
         url: '',
         body: '',
+        lyrics: '',
     });
 
     const handleCheckboxChange = (topicId) => {
@@ -164,12 +165,34 @@ export default function Create({ topics }) {
                                         <InputError message={errors.body} />
                                     </div>
 
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="lyrics">
+                                            Letra{' '}
+                                            <span className="ml-3 text-xs text-neutral-500">
+                                                Restam: {3000 - data.lyrics.length + ' caracteres'}
+                                            </span>
+                                        </Label>
+                                        <Textarea
+                                            rows={20}
+                                            className="font-mono"
+                                            maxLength={3000}
+                                            spellCheck={true}
+                                            id="lyrics"
+                                            required
+                                            tabIndex={5}
+                                            autoComplete="lyrics"
+                                            value={data.lyrics}
+                                            onChange={(e) => setData('lyrics', e.target.value)}
+                                        />
+                                        <InputError message={errors.lyrics} />
+                                    </div>
+
                                     <div className="mt-4 flex items-center justify-start gap-x-6">
-                                        <Button type="submit" tabIndex={5} disabled={processing}>
+                                        <Button type="submit" tabIndex={6} disabled={processing}>
                                             {processing && <LoaderCircle className="h-4 w-4 animate-spin" />}
                                             Salvar
                                         </Button>
-                                        <Button type="button" tabIndex={6}>
+                                        <Button type="button" tabIndex={7}>
                                             Cancelar
                                         </Button>
                                     </div>

@@ -20,12 +20,11 @@ class SongResource extends JsonResource
             'slug' => $this->slug,
             'url' => $this->url,
             'body' => $this->body,
+            'lyrics' => $this->lyrics,
             'artist' => ArtistResource::make($this->whenLoaded('artist')),
             'tags' => TagResource::collection($this->whenLoaded('tags')),
-            //'tags' => $this->whenLoaded('tags', $this->tags()->pluck('tag_id')),
-            'schedules_for_today' => ScheduleResource::make($this->whenLoaded('schedules_for_today')),
             'schedules' => ScheduleResource::collection($this->whenLoaded('schedules')),
-            'schedules_count' => $this->whenCounted('schedules'),
+            'schedules_for_today' => ScheduleResource::make($this->whenLoaded('schedules_for_today')),
         ];
     }
 }

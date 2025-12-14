@@ -24,7 +24,6 @@ class SongController extends Controller
                     $query->whereLike('title', "%{$filter}%")
                         ->orWhereRelation('artist', 'name', 'like', "%{$filter}%");
                 })
-                    ->withCount('schedules')
                     ->with(['artist', 'schedules'])
                     ->orderBy('title')
                     ->paginate(15)
@@ -41,22 +40,18 @@ class SongController extends Controller
         try {
             $artist = Artist::where('slug', $request->validated('artist_slug'))->first();
 
-            if ($artist) {
-
-                $artist->songs()->create($request->except('artist_slug', 'artist', 'tags'));
-                $song = $artist->songs()->latest()->first();
-                $song->tags()->attach($request->validated('tags'));
-            } else {
+            if (!$artist) {
 
                 $artist = Artist::create([
                     'slug' => $request->validated('artist_slug'),
                     'name' => $request->validated('artist'),
                 ]);
 
-                $artist->songs()->create($request->except('artist_slug', 'artist', 'tags'));
-                $song = $artist->songs()->latest()->first();
-                $song->tags()->attach($request->validated('tags'));
             }
+
+            $artist->songs()->create($request->except('artist_slug', 'artist', 'tags'));
+            $song = $artist->songs()->latest()->first();
+            $song->tags()->attach($request->validated('tags'));
 
 
         } catch (\Exception $e) {
@@ -113,6 +108,7 @@ class SongController extends Controller
                     'slug' => $request->validated('slug'),
                     'url' => $request->validated('url'),
                     'body' => $request->validated('body'),
+                    'lyrics' => $request->validated('lyrics'),
                 ]);
 
                 $song->tags()->sync($request->validated('tags'));
@@ -129,6 +125,7 @@ class SongController extends Controller
                     'slug' => $request->validated('slug'),
                     'url' => $request->validated('url'),
                     'body' => $request->validated('body'),
+                    'lyrics' => $request->validated('lyrics'),
                 ]);
 
                 $song->tags()->attach($request->validated('tags'));

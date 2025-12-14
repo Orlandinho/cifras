@@ -12,20 +12,29 @@ Route::get('/dashboard', function () {
 
 Route::permanentRedirect('/', '/cifras');
 
+Route::controller(SongController::class)->group(function () {
+    Route::get('cifras', 'index')->name('songs.index');
+    Route::get('cifras/{artist:slug}/{song:slug}', 'show')->name('songs.show');
+});
+
+Route::controller(ArtistController::class)->group(function () {
+    Route::get('artistas', 'index')->name('artists.index');
+    Route::get('artistas/{artist:slug}', 'show')->name('artists.show');
+});
+
+Route::get('temas/{tag:slug?}', [TagController::class, 'index'])->name('tags.index');
+
 Route::middleware('auth')->group(function () {
+
     Route::controller(SongController::class)->group(function () {
-        Route::get('cifras', 'index')->name('songs.index');
         Route::get('cifras/criar', 'create')->name('songs.create');
         Route::post('cifras', 'store')->name('songs.store');
-        Route::get('cifras/{artist:slug}/{song:slug}', 'show')->name('songs.show');
         Route::get('cifras/{artist:slug}/{song:slug}/editar', 'edit')->name('songs.edit');
         Route::patch('cifras/{song}', 'update')->name('songs.update');
         Route::delete('cifras/{song}', 'destroy')->name('songs.destroy');
     });
 
     Route::controller(ArtistController::class)->group(function () {
-        Route::get('artistas', 'index')->name('artists.index');
-        Route::get('artistas/{artist:slug}', 'show')->name('artists.show');
         Route::get('artistas/{artist:slug}/editar', 'edit')->name('artists.edit');
         Route::patch('artistas/{artist}', 'update')->name('artists.update');
         Route::delete('artistas/{artist}', 'destroy')->name('artists.destroy');
@@ -36,8 +45,6 @@ Route::middleware('auth')->group(function () {
         Route::post('separadas/{song}', 'toggle')->name('schedules.toggle');
         Route::delete('separadas/{song}', 'destroy')->name('schedules.destroy');
     });
-
-    Route::get('tema/{tag:slug?}', TagController::class)->name('tags.index');
 });
 
 require __DIR__ . '/settings.php';

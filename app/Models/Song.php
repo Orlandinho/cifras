@@ -13,7 +13,7 @@ class Song extends Model
     /** @use HasFactory<\Database\Factories\SongFactory> */
     use HasFactory;
 
-    protected $fillable = ['artist_id', 'title', 'slug', 'url', 'body'];
+    protected $fillable = ['artist_id', 'title', 'slug', 'url', 'body', 'lyrics'];
 
     public function artist(): BelongsTo
     {

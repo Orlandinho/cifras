@@ -9,7 +9,7 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
-    public function __invoke(Tag $tag = null)
+    public function index(Tag $tag = null)
 
     {
         if ($tag) {

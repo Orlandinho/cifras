@@ -1,7 +1,7 @@
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
-import { Columns2Icon } from 'lucide-react';
+import { ClipboardCheckIcon, ClipboardIcon, Columns2Icon, Mic2Icon } from 'lucide-react';
 import { useState } from 'react';
 
 interface Song {
@@ -9,6 +9,7 @@ interface Song {
     title: string;
     slug: string;
     body: string;
+    lyrics: string;
     artist: {
         id: number;
         name: string;
@@ -18,6 +19,18 @@ interface Song {
 
 export default function Show({ song }: { song: Song }) {
     const [columns, setColumns] = useState<boolean>(false);
+    const [showLyrics, setShowLyrics] = useState<boolean>(false);
+    const [copiedLyrics, setCopiedLyrics] = useState<string>('');
+
+    async function copyLyrics() {
+        try {
+            await navigator.clipboard.writeText(song.lyrics);
+            const clipboardText = await navigator.clipboard.readText();
+            setCopiedLyrics(clipboardText);
+        } catch (error) {
+            console.error('Erro ao copiar texto:', error);
+        }
+    }
 
     const breadcrumbs: BreadcrumbItem[] = [
         {
@@ -41,14 +54,38 @@ export default function Show({ song }: { song: Song }) {
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-neutral-100 shadow-sm sm:rounded-lg dark:bg-neutral-900">
                         <div className="absolute">
-                            <button onClick={() => setColumns(!columns)} className="relative mx-4 mt-4 cursor-pointer">
+                            <button
+                                onClick={() => setColumns(!columns)}
+                                className="relative mt-4 ml-4 block cursor-pointer"
+                            >
                                 <Columns2Icon
                                     className={`size-6 ${columns ? 'text-sky-400 hover:text-sky-600' : 'text-neutral-400 hover:text-neutral-600'}`}
                                 />
                             </button>
+                            <button
+                                onClick={() => setShowLyrics(!showLyrics)}
+                                className={`mt-4 ml-4 block cursor-pointer ${!song.lyrics ? 'hidden' : ''}`}
+                            >
+                                <Mic2Icon
+                                    className={`size-6 ${showLyrics ? 'text-fuchsia-400 hover:text-fuchsia-600' : 'text-neutral-400 hover:text-neutral-600'}`}
+                                />
+                            </button>
+                            <button
+                                onClick={() => copyLyrics()}
+                                className={`mt-4 ml-4 block cursor-pointer ${!showLyrics ? 'hidden' : ''}`}
+                            >
+                                <ClipboardCheckIcon
+                                    className={`size-6 text-green-400 hover:text-green-600 ${copiedLyrics && copiedLyrics === song.lyrics ? '' : 'hidden'}`}
+                                />
+                                <ClipboardIcon
+                                    className={`size-6 text-neutral-400 hover:text-neutral-600 ${!copiedLyrics || copiedLyrics !== song.lyrics ? '' : 'hidden'}`}
+                                />
+                            </button>
                         </div>
                         <div className="p-6 text-center">
-                            <pre className={`text-sm md:text-base ${columns ? 'columns-2' : ''}`}>{song.body}</pre>
+                            <pre className={`text-sm md:text-base ${columns ? 'columns-2' : ''}`}>
+                                {showLyrics ? song.lyrics : song.body}
+                            </pre>
                         </div>
                     </div>
                 </div>

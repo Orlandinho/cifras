@@ -15,7 +15,7 @@ class ArtistController extends Controller
     public function index(): Response
     {
         return inertia('artists/index', [
-            'artists' => ArtistResource::collection(Artist::withCount('songs')->orderBy('name')->paginate(15)),
+            'artists' => ArtistResource::collection(Artist::with('songs')->withCount('songs')->orderBy('name')->paginate(15)),
         ]);
     }
 
