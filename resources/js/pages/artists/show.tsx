@@ -2,8 +2,7 @@ import DeleteButton from '@/components/delete-button';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { BookOpenCheckIcon, CirclePlusIcon, Link as LuciLink, SquarePenIcon } from 'lucide-react';
-import LyricsModal from '@/components/lyrics-modal';
+import { BookOpenCheckIcon, CirclePlusIcon, Link as LuciLink, Mic2Icon, SquarePenIcon } from 'lucide-react';
 
 const today = new Date().toLocaleString('pt-BR').split(',')[0];
 
@@ -124,10 +123,18 @@ export default function Show({ artist }: { artist: Artist[] }) {
                                                                 </td>
                                                                 <td className="py-3 pr-3 text-sm whitespace-nowrap">
                                                                     {song.lyrics ? (
-                                                                        <LyricsModal
-                                                                            title={song.title}
-                                                                            lyrics={song.lyrics}
-                                                                        />
+                                                                        <Link
+                                                                            href={route('lyrics.show', [
+                                                                                artist.slug,
+                                                                                song.slug,
+                                                                            ])}
+                                                                            className="inline-block"
+                                                                        >
+                                                                            <Mic2Icon className="h-4 w-4 text-fuchsia-500 hover:text-fuchsia-700" />
+                                                                            <span className="sr-only">
+                                                                                {song.title}
+                                                                            </span>
+                                                                        </Link>
                                                                     ) : (
                                                                         'Sem Letra'
                                                                     )}

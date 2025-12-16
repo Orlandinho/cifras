@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\LyricsController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SongController;
 use App\Http\Controllers\TagController;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', function () {
     return inertia('dashboard');
 });
+
+Route::get('cifras/{artist:slug}/{song:slug}/letra', LyricsController::class)->name('lyrics.show');
 
 Route::permanentRedirect('/', '/cifras');
 

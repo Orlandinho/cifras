@@ -3,7 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
 import { Head, Link } from '@inertiajs/react';
-import { LinkIcon, SquarePenIcon, XIcon } from 'lucide-react';
+import { LinkIcon, Mic2Icon, SquarePenIcon, XIcon } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -82,6 +82,12 @@ export default function Index({ schedules, recent, popular }: { schedules: Song[
                                                                             scope="col"
                                                                             className="px-3 py-3.5 text-left text-sm font-semibold"
                                                                         >
+                                                                            Letra
+                                                                        </th>
+                                                                        <th
+                                                                            scope="col"
+                                                                            className="px-3 py-3.5 text-left text-sm font-semibold"
+                                                                        >
                                                                             Mídia
                                                                         </th>
                                                                         <th
@@ -122,6 +128,28 @@ export default function Index({ schedules, recent, popular }: { schedules: Song[
                                                                                 >
                                                                                     {scheduled.song.artist.name}
                                                                                 </Link>
+                                                                            </td>
+                                                                            <td
+                                                                                className={
+                                                                                    'px-3 py-3 text-sm whitespace-nowrap text-neutral-500 dark:text-neutral-400'
+                                                                                }
+                                                                            >
+                                                                                {scheduled.song.lyrics ? (
+                                                                                    <Link
+                                                                                        href={route('lyrics.show', [
+                                                                                            scheduled.song.artist.slug,
+                                                                                            scheduled.song.slug,
+                                                                                        ])}
+                                                                                        className="inline-block"
+                                                                                    >
+                                                                                        <Mic2Icon className="h-4 w-4 text-fuchsia-500 hover:text-fuchsia-700" />
+                                                                                        <span className="sr-only">
+                                                                                            {scheduled.song.title}
+                                                                                        </span>
+                                                                                    </Link>
+                                                                                ) : (
+                                                                                    'Sem Letra'
+                                                                                )}
                                                                             </td>
                                                                             <td
                                                                                 className={

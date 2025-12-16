@@ -1,12 +1,11 @@
 import DeleteButton from '@/components/delete-button';
-import LyricsModal from '@/components/lyrics-modal';
 import Pagination from '@/components/pagination';
 import { Input } from '@/components/ui/input';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import { debounce } from 'lodash';
-import { BookOpenCheckIcon, CirclePlusIcon, LinkIcon, SquarePenIcon } from 'lucide-react';
+import { BookOpenCheckIcon, CirclePlusIcon, LinkIcon, Mic2Icon, SquarePenIcon } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -182,10 +181,16 @@ export default function Index({ songs, filter }: { songs: Song[]; filter: string
                                                                 }
                                                             >
                                                                 {song.lyrics ? (
-                                                                    <LyricsModal
-                                                                        title={song.title}
-                                                                        lyrics={song.lyrics}
-                                                                    />
+                                                                    <Link
+                                                                        href={route('lyrics.show', [
+                                                                            song.artist.slug,
+                                                                            song.slug,
+                                                                        ])}
+                                                                        className="inline-block"
+                                                                    >
+                                                                        <Mic2Icon className="h-4 w-4 text-fuchsia-500 hover:text-fuchsia-700" />
+                                                                        <span className="sr-only">{song.title}</span>
+                                                                    </Link>
                                                                 ) : (
                                                                     'Sem Letra'
                                                                 )}
