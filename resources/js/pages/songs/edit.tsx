@@ -189,7 +189,7 @@ export default function Edit({ song, topics }: { song: Song; topics: string[] })
 
                                     <div className="grid gap-2">
                                         <Label htmlFor="lyrics">
-                                            Letra Cifrada{' '}
+                                            Letra{' '}
                                             <span className="ml-3 text-xs text-neutral-500">
                                                 Restam: {3000 - (data.lyrics?.length ?? 0) + ' caracteres'}
                                             </span>

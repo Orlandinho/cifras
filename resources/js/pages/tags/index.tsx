@@ -3,7 +3,7 @@ import { Navbar, NavbarItem, NavbarSection } from '@/components/nav-bar';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
-import { BookOpenCheckIcon, CirclePlusIcon, LinkIcon, SquarePenIcon } from 'lucide-react';
+import { BookOpenCheckIcon, CirclePlusIcon, LinkIcon, Mic2Icon, SquarePenIcon } from 'lucide-react';
 
 const today = new Date().toLocaleString('pt-BR').split(',')[0];
 
@@ -12,6 +12,7 @@ interface Song {
     title: string;
     slug: string;
     url: string;
+    lyrics: string;
     artist: {
         id: number;
         name: string;
@@ -46,7 +47,7 @@ export default function Index({ songs, tag, topics }: { songs: Song[]; tag: Tag;
                 <div className="mx-auto max-w-6xl sm:px-6 lg:px-8">
                     <Navbar className="mb-2 rounded-md border border-neutral-800 px-3">
                         <NavbarSection>
-                            <div className="grid grid-cols-4 md:grid-cols-8">
+                            <div className="grid grid-cols-4 md:grid-cols-12">
                                 {topics.map((topic) => (
                                     <NavbarItem
                                         key={topic.id}
@@ -103,6 +104,12 @@ export default function Index({ songs, tag, topics }: { songs: Song[]; tag: Tag;
                                                                 scope="col"
                                                                 className="px-3 py-3.5 text-left text-sm font-semibold"
                                                             >
+                                                                Letra
+                                                            </th>
+                                                            <th
+                                                                scope="col"
+                                                                className="px-3 py-3.5 text-left text-sm font-semibold"
+                                                            >
                                                                 Mídia
                                                             </th>
                                                             {auth.user && (
@@ -144,6 +151,24 @@ export default function Index({ songs, tag, topics }: { songs: Song[]; tag: Tag;
                                                                     >
                                                                         {song.artist.name}
                                                                     </Link>
+                                                                </td>
+                                                                <td className="px-3 py-3 text-sm whitespace-nowrap">
+                                                                    {song.lyrics ? (
+                                                                        <Link
+                                                                            href={route('lyrics.show', [
+                                                                                song.artist.slug,
+                                                                                song.slug,
+                                                                            ])}
+                                                                            className="inline-block"
+                                                                        >
+                                                                            <Mic2Icon className="h-4 w-4 text-fuchsia-500 hover:text-fuchsia-700" />
+                                                                            <span className="sr-only">
+                                                                                {song.title}
+                                                                            </span>
+                                                                        </Link>
+                                                                    ) : (
+                                                                        'Sem Letra'
+                                                                    )}
                                                                 </td>
                                                                 <td
                                                                     className={

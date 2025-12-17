@@ -69,7 +69,7 @@ export default function Show({ artist }: { artist: Artist[] }) {
                                                                 scope="col"
                                                                 className="py-3.5 pr-3 pl-4 text-left text-sm font-semibold sm:pl-0"
                                                             >
-                                                                Artista
+                                                                Título
                                                             </th>
                                                             <th
                                                                 scope="col"
@@ -121,7 +121,7 @@ export default function Show({ artist }: { artist: Artist[] }) {
                                                                         {song.title}
                                                                     </Link>
                                                                 </td>
-                                                                <td className="py-3 pr-3 text-sm whitespace-nowrap">
+                                                                <td className="py-3 pr-3 text-sm whitespace-nowrap text-neutral-500 dark:text-neutral-400">
                                                                     {song.lyrics ? (
                                                                         <Link
                                                                             href={route('lyrics.show', [
