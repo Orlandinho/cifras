@@ -1,8 +1,9 @@
+import { Artist } from '@/types';
 import { Link } from '@inertiajs/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useLayoutEffect, useState } from 'react';
 
-export default function Pagination({ items }: { items: [] }) {
+export default function Pagination({ items, model = 'songs' }: { items: Artist[]; model?: string }) {
     const [totalLinks, setTotalLinks] = useState([]);
 
     useLayoutEffect(() => {
@@ -61,7 +62,7 @@ export default function Pagination({ items }: { items: [] }) {
                                 <Link
                                     key={link}
                                     preserveScroll={true}
-                                    href={route('songs.index', { page: link })}
+                                    href={route(model + '.index', { page: link })}
                                     aria-current="page"
                                     className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-neutral-500 ring-inset focus:z-20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-600 hover:dark:bg-neutral-500 hover:dark:text-neutral-300 ${items.meta.current_page === link ? 'z-10 dark:bg-neutral-600 dark:text-neutral-300' : 'dark:bg-neutral-800 dark:text-neutral-400'}`}
                                 >

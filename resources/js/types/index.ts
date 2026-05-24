@@ -41,12 +41,44 @@ export interface PaginatedResponse<T> {
     total: number;
 }
 
-
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
     [key: string]: unknown;
+}
+
+export interface Tag {
+    id: number;
+    name: string;
+    slug: string;
+}
+
+export interface Schedule {
+    id: number;
+    date: string;
+    song: Song;
+}
+
+export interface Song {
+    id: number;
+    title: string;
+    slug: string;
+    url: string;
+    body: string;
+    lyrics: string;
+    artist: Artist;
+    tags?: Tag[];
+    schedules: Schedule[];
+    schedules_for_today: Schedule;
+}
+
+export interface Artist {
+    id: number;
+    name: string;
+    slug: string;
+    songs: Song[];
+    songs_count?: number;
 }
 
 export interface User {

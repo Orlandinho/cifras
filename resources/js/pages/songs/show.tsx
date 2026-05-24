@@ -82,8 +82,8 @@ export default function Show({ song }: { song: Song }) {
                                 />
                             </button>
                         </div>
-                        <div className="p-6 text-center">
-                            <pre className={`text-sm md:text-base ${columns ? 'columns-2' : ''}`}>
+                        <div className="overflow-x-auto p-6 text-center">
+                            <pre className={`text-xs md:text-sm lg:text-base ${columns ? 'columns-2' : ''}`}>
                                 {showLyrics ? song.lyrics : song.body}
                             </pre>
                         </div>

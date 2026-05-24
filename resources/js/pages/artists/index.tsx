@@ -1,7 +1,7 @@
 import DeleteButton from '@/components/delete-button';
 import Pagination from '@/components/pagination';
 import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem, type SharedData } from '@/types';
+import { Artist, type BreadcrumbItem, type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { SquarePenIcon } from 'lucide-react';
 
@@ -11,13 +11,6 @@ const breadcrumbs: BreadcrumbItem[] = [
         href: '/artistas',
     },
 ];
-
-interface Artist {
-    id: number;
-    name: string;
-    slug: string;
-    songs_count: number;
-}
 
 export default function Index({ artists }: { artists: Artist[] }) {
     const page = usePage<SharedData>();
@@ -142,7 +135,7 @@ export default function Index({ artists }: { artists: Artist[] }) {
                                 </div>
                             )}
                         </div>
-                        {artists.meta.last_page > 1 && <Pagination items={artists} />}
+                        {artists.meta.last_page > 1 && <Pagination items={artists} model={'artists'} />}
                     </div>
                 </div>
             </div>

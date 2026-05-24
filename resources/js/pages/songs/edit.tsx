@@ -68,7 +68,7 @@ export default function Edit({ song, topics }: { song: Song; topics: string[] })
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Nova Cifra" />
+            <Head title={song.title + ' - ' + song.artist.name} />
             <div className="py-6">
                 <div className="mx-auto max-w-5xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-neutral-50 shadow-sm sm:rounded-lg dark:bg-neutral-900">
@@ -200,7 +200,6 @@ export default function Edit({ song, topics }: { song: Song; topics: string[] })
                                             maxLength={3000}
                                             spellCheck={true}
                                             id="lyrics"
-                                            required
                                             tabIndex={5}
                                             autoComplete="lyrics"
                                             value={data.lyrics}
